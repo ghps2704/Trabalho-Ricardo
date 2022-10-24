@@ -1,0 +1,72 @@
+import java.util.Scanner;
+
+public class main {
+
+    public static void menu() {
+        System.out.println("1 - Inserir um elemento");
+        System.out.println("2 - Deletar um elemento");
+        System.out.println("3 - Buscar um elemento");
+        System.out.println("4 - Sair");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int y,resposta=0,numero;
+        System.out.println("Digite o tamanho do Vetor: ");
+        y = scanner.nextInt();
+        Vetor vetor = new Vetor(y);
+        for (;resposta != 4;) {
+            menu();
+            resposta = scanner.nextInt();
+            if (resposta == 1) {
+                System.out.println("Digite o Número para ser inserido: ");
+                numero = scanner.nextInt();
+                vetor.insere(numero);
+                System.out.println("Número "+ numero +" acaba de ser inserido");
+            } 
+            if (resposta == 2) {
+                System.out.println("Digite a casa na qual deseja remover o número:");
+                numero = scanner.nextInt();
+                vetor.remove(numero);
+            }
+            if (resposta == 3) {
+                System.out.println("Digite a casa na qual você queira ver o número:");
+                numero = scanner.nextInt();
+                System.out.println("O número da casa: "+numero+ " é "+ vetor.buscaElemento(numero));
+            }
+        }
+        System.out.println("O programa foi encerrado com sucesso!");
+    }
+}
+
+public class Vetor{
+    int tamanho;
+    int vetor [];
+
+    public Vetor(int tamanho) {
+        this.tamanho = tamanho;
+        this.vetor = new int [this.tamanho];
+    }
+    public void insere(int valor) {
+        for (int i = 0; i < tamanho; i++) {
+            if (this.vetor[i] == 0) {
+                this.vetor[i] = valor;
+                break;
+            }
+            else if (this.vetor[tamanho - 1] != 0) {
+                System.out.println("O vetor está completo");               
+            }
+        }
+    }
+    public void remove(int posicao) {
+        this.vetor[posicao - 1] = 0;
+        for (int i = 0; i < tamanho; i++) {
+            if (this.vetor[i] == 0 && this.vetor[i + 1] != 0) {
+                this.vetor[i] = this.vetor[i + 1];
+                this.vetor[i + 1] = 0;
+            }
+        }
+    public int buscaElemento(int posicao) {
+        return this.vetor[posicao - 1];
+    }
+}
